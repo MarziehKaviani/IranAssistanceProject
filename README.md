@@ -31,9 +31,9 @@ docker build -t iran_assistance_app .
 
 ### Run the Application
 
-\`\`\`bash
+```bash
 docker run -d -p 8000:8000 iran_assistance_app
-\`\`\`
+```
 
 ### Access the Application
 
