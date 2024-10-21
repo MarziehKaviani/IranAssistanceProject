@@ -2,8 +2,6 @@ import re
 
 from django.core.exceptions import ValidationError
 
-from IranAssistanceProject import variables
-
 
 class PhoneNumberValidator:
     def __init__(

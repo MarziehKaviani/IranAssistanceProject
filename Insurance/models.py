@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from IranAssistanceProject import variables
+from core import variables
 
 
 class InsuranceProvider(models.Model): # bimegar
@@ -132,3 +132,6 @@ class InsurancePlan(models.Model):
     class Meta:
         verbose_name = _("Insurance Plan")
         verbose_name_plural = _("Insurance Plans")
+
+
+

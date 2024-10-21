@@ -4,7 +4,7 @@ from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.models import (AbstractBaseUser, Group, Permission,
                                         PermissionsMixin)
 
-from IranAssistanceProject import variables
+from core import variables
 from validators import PhoneNumberValidator
 
 
@@ -28,9 +28,9 @@ class CustomUserManager(BaseUserManager):
         """
         Create and return a superuser with an phone number and password.
         """
-        extra_fields.setdefault(variables.is_staff, True)
-        extra_fields.setdefault(variables.is_active, True)
-        extra_fields.setdefault(variables.is_superuser, True)
+        extra_fields.setdefault(variables.IS_STAFF, True)
+        extra_fields.setdefault(variables.IS_ACTIVE, True)
+        extra_fields.setdefault(variables.IS_SUPERUSER, True)
 
         return self.create_user(phone_number, password, **extra_fields)
 
@@ -70,7 +70,7 @@ class Person(AbstractBaseUser, PermissionsMixin):
         max_length=255, verbose_name=variables.PLACE_OF_ISSUE_VERBOSE_NAME, null=True, blank=True
     )
     is_active = models.BooleanField(default=True, verbose_name=variables.IS_ACTIVE_VERBOSE_NAME)
-    is_staff = models.BooleanField(default=False, verbose_name=variables.IS_STAFF_VERBOSE_NAME)
+    is_staff = models.BooleanField(default=False, verbose_name=variables.IS_STAFF)
     
     objects = CustomUserManager()
 
