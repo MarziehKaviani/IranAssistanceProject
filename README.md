@@ -1,4 +1,4 @@
-echo "# Iran Assistance Project
+# Iran Assistance Project
 
 ## Overview
 
