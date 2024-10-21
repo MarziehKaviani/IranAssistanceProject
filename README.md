@@ -18,16 +18,16 @@ The Iran Assistance Project is a Django-based web application designed to manage
 
 ### Clone the Repository
 
-\`\`\`bash
+```bash
 git clone https://github.com/MarziehKaviani/IranAssistanceProject.git
 cd IranAssistanceProject
-\`\`\`
+```
 
 ### Build the Docker Image
 
-\`\`\`bash
+```bash
 docker build -t iran_assistance_app .
-\`\`\`
+```
 
 ### Run the Application
 
