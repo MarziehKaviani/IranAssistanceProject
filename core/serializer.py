@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
 from Person.models import Person
+from core import variables
 from Insurance.models import (
     InsuranceProvider, 
-    Policyholder, 
+    PolicyHolder, 
     InsurancePolicy, 
     InsurancePlan
     )
@@ -23,7 +24,7 @@ class InsuranceProviderSerializer(serializers.ModelSerializer):
 
 class PolicyholderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Policyholder
+        model = PolicyHolder
         fields = '__all__'
 
 
@@ -40,7 +41,7 @@ class InsurancePlanSerializer(serializers.ModelSerializer):
 
 
 class CompleteDataSerializer(serializers.Serializer):
-    person = PersonSerializer()
+    insured_person = PersonSerializer()
     insurance_provider = InsuranceProviderSerializer()
     policyholder = PolicyholderSerializer()
     insurance_policy = InsurancePolicySerializer()
