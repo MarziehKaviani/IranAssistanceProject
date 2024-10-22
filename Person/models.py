@@ -41,7 +41,8 @@ class Person(AbstractBaseUser, PermissionsMixin):
         unique=True,
         verbose_name=variables.PHONE_NUMBER_VERBOSE_NAME,
     )
-
+    email = models.EmailField(verbose_name=variables.EMAIL_VERBOSE_ENAME)
+    
     name = models.CharField(
         max_length=32, verbose_name=variables.NAME_VERBOSE_NAME
     )
