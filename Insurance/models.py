@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from core import variables
+from Person.models import Person
 
 
 class InsuranceProvider(models.Model): # bimegar
@@ -31,7 +33,7 @@ class InsuranceProvider(models.Model): # bimegar
         verbose_name_plural = _("Insurance Providers")
 
 
-class Policyholder(models.Model):  # bimegozar 
+class PolicyHolder(models.Model):  # bimegozar 
     name = models.CharField(
         max_length=255,
         verbose_name=variables.NAME_VERBOSE_NAME,
@@ -56,8 +58,8 @@ class Policyholder(models.Model):  # bimegozar
         return self.policyholder_name
 
     class Meta:
-        verbose_name = _("Policyholder")
-        verbose_name_plural = _("Policyholders")
+        verbose_name = _("Policy Holder")
+        verbose_name_plural = _("Policy Holders")
 
 
 class InsurancePolicy(models.Model):
@@ -89,7 +91,6 @@ class InsurancePolicy(models.Model):
         auto_now=True,
         verbose_name=variables.UPDATED_AT_VERBOSE_NAME 
     )
-
     def __str__(self):
         return self.unique_identifier
 
@@ -105,12 +106,10 @@ class InsurancePlan(models.Model):
         null=False,
         blank=False
     )
-
     name = models.CharField(
         max_length=255,
         verbose_name=variables.NAME_VERBOSE_NAME,
     )
-
     unique_identifier = models.CharField(
         max_length=100,
         verbose_name=variables.UNIQUE_IDENTIFIER_VERBOSE_NAME, 
@@ -125,6 +124,12 @@ class InsurancePlan(models.Model):
         auto_now=True,
         verbose_name=variables.UPDATED_AT_VERBOSE_NAME 
     )
+    insurance_policy = models.ForeignKey(
+        InsurancePolicy,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name=variables.INSURANCE_POLICY_VERBOSE_NAME
+    )
 
     def __str__(self):
         return f"{self.name} - {self.insurance_policy_number}"
@@ -134,4 +139,29 @@ class InsurancePlan(models.Model):
         verbose_name_plural = _("Insurance Plans")
 
 
-
+class InsuredPerson(models.Model):
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=variables.CREATED_AT_VERBOSE_NAME 
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=variables.UPDATED_AT_VERBOSE_NAME 
+    )
+    insurance_policy = models.ForeignKey(
+        InsurancePolicy,
+        on_delete=models.SET_NULL,
+        null = True,
+    )
+    policy_holder = models.ForeignKey(
+        PolicyHolder,
+        on_delete=models.SET_NULL,
+        null=True, 
+        verbose_name=variables.POLICY_HOLDER_VERBOSE_NAME
+    )
+    insurance_provider = models.ForeignKey(
+        InsuranceProvider,
+        on_delete=models.SET_NULL,
+        null=True, 
+        verbose_name=variables.INSURANCE_PROVIDER_VERBOSE_NAME
+    )
