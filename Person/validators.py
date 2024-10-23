@@ -26,10 +26,35 @@ class PhoneNumberValidator:
     def validate(self):
         if not str(self.phone_number).strip().isdigit():
             return False
-        if int(self.phone_number.strip()[:3]) not in self.valid_digits or len(self.phone_number.strip()) != 10:
+        if int(self.phone_number.strip()[1:4]) not in self.valid_digits or len(self.phone_number.strip()) != 11:
             return False
         pattern = r"^0(?:9[0-9][0-9]|9[0-5]|9[013-9]|99|93)[0-9]{7}$"
-        if not re.match(pattern, f"0{self.phone_number}"):
+        if not re.match(pattern, self.phone_number):
             return False
         return True
 
+
+
+def identity_number_validator(identity_number):
+    """
+    Validate the national code.
+
+    Parameters
+    ----------
+    identity_number : str
+        The national code to validate.
+
+    Returns
+    -------
+    bool
+        True if the national code is valid, False otherwise.
+    """
+    # Ensure the national code is a string
+    if not isinstance(identity_number, str):
+        return False
+
+    # Check if the string contains only digits and has the correct length (e.g., 10 digits)
+    if not identity_number.isdigit() or len(identity_number) != 10:
+        return False
+
+    return True
