@@ -1,41 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import BaseUserManager
-from django.contrib.auth.models import (AbstractBaseUser, Group, Permission,
-                                        PermissionsMixin)
 
 from core import variables
-from validators import PhoneNumberValidator
+from .validators import PhoneNumberValidator
 
 
-class CustomUserManager(BaseUserManager):
-    def create_user(self, phone_number, password=None, **extra_fields):
-        """
-        Create and return a user with an phone number and password.
-        """
-        if not phone_number:
-            raise ValueError(variables.PHONE_NUMBER_REQUIRED)
-        if not PhoneNumberValidator(phone_number).validate():
-            raise ValueError(variables.INVALID_PHONE_NUMBER)
-        
-        phone_number = phone_number
-        user = self.model(phone_number=phone_number, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, phone_number, password=None, **extra_fields):
-        """
-        Create and return a superuser with an phone number and password.
-        """
-        extra_fields.setdefault(variables.IS_STAFF, True)
-        extra_fields.setdefault(variables.IS_ACTIVE, True)
-        extra_fields.setdefault(variables.IS_SUPERUSER, True)
-
-        return self.create_user(phone_number, password, **extra_fields)
-
-
-class Person(AbstractBaseUser, PermissionsMixin):
+class Person(models.Model):
     phone_number = models.CharField(
         max_length=11,
         unique=True,
@@ -70,15 +40,6 @@ class Person(AbstractBaseUser, PermissionsMixin):
     place_of_issue = models.CharField(
         max_length=255, verbose_name=variables.PLACE_OF_ISSUE_VERBOSE_NAME, null=True, blank=True
     )
-    is_active = models.BooleanField(default=True, verbose_name=variables.IS_ACTIVE_VERBOSE_NAME)
-    is_staff = models.BooleanField(default=False, verbose_name=variables.IS_STAFF)
-    
-    objects = CustomUserManager()
-
-    USERNAME_FIELD = "phone_number"
-    REQUIRED_FIELDS = [
-        'name', 'last_name', 'identity_number', 'birth_date'
-    ]
 
     def __str__(self) -> str:
         return f"{self.name} {self.last_name}" 

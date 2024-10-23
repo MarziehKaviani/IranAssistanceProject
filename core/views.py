@@ -14,7 +14,8 @@ class CreateInsuredPersonView(views.APIView):
     
     permission_classes = [IsProviderPermission]
     http_method_names = ['post']
-    
+    serializer_class = CompleteDataSerializer
+
     def post(self, request, *args, **kwargs):
         serializer = CompleteDataSerializer(data=request.data)
         if not serializer.is_valid():
@@ -25,18 +26,25 @@ class CreateInsuredPersonView(views.APIView):
                 http_status_code=status.HTTP_400_BAD_REQUEST,
                 business_status_code=BusinessStatusCodes.INVALID_INPUT_DATA,
             )
-        try:
-            insurance_service = InsuranseService()
-            insurance_data = insurance_service.process_insurance_data()
-            return BaseResponse(
-            data=insurance_data,
-            http_status_code=status.HTTP_200_OK, 
-            business_status_code=BusinessStatusCodes.SUCCESS,
-            )        
-        except Exception as e:
-            return BaseResponse(
-                message=variables.SOMETHING_WENT_WRONG, 
-                http_status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                is_exception=True,
-                business_status_code=BusinessStatusCodes.UNEXPECTED_ERROR
-                )
+        # try:
+        mapping_key = {
+            "hfksjfesjfl": "insured_person",
+            "provider": "insurance_provider",
+            "holder": "policy_holder",
+            "policy": "insurance_policy",
+            "plan": "insurance_plan"
+            }
+        insurance_service = InsuranseService(serializer.validated_data, mapping_key)
+        insurance_data = insurance_service.process_insurance_data()
+        return BaseResponse(
+        data={"Insurance policy unique identifier":insurance_data[variables.INSURANCE_POLICY][variables.UNIQUE_IDENTIFIER]},
+        http_status_code=status.HTTP_200_OK, 
+        business_status_code=BusinessStatusCodes.SUCCESS,
+        )        
+        # except Exception as e: #TODO
+            # return BaseResponse(
+            #     message=f"{variables.SOMETHING_WENT_WRONG}{e}", 
+            #     http_status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            #     is_exception=True,
+            #     business_status_code=BusinessStatusCodes.UNEXPECTED_ERROR
+            #     )
