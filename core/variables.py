@@ -24,6 +24,7 @@ INSURANCE_PROVIDER_VERBOSE_NAME = _("Insurance Provider")
 PLAN_VERBOSE_NAME = _("Plan")
 EMAIL_VERBOSE_ENAME = _("Email")
 INSURANCE_POLICY_VERBOSE_NAME = _("Insurance Policy")
+PERSON_VERBOSE_NAME = _("Person")
 
 # keys
 IS_STAFF = "is_staff"
@@ -35,10 +36,24 @@ INSURED_PERSON = 'insured_person'
 PERSON = "person"
 INSURANCE_PROVIDER = 'insurance_provider'
 POLICY_HOLDER = 'policy_holder'
-POLICY_NUMBER = 'policy_number'
+POLICY_NUMBER = 'insurance_policy_number'
 INSURANCE_PLAN = 'insurance_plan'
 INSURANCE_POLICY = 'insurance_policy'
 UNIQUE_IDENTIFIER = 'unique_identifier'
+DETAILS = 'details'
+ID = 'id'
+NAME = 'name'
+START_DATE = "start_date"
+END_DATE = "end_date"
+CONFIRMATION_DATE = "confirmation_date"
+INSURANCE_POLICY_NUMBER = 'insurance_policy_number'
+PHONE_NUMBER = "phone_number"
+EMAIL = "email"
+LAST_NAME = "last_name"
+IDENTITY_NUMBER = "identity_number"
+BIRTH_DATE = "birth_date"
+FATHER_NAME = "father_name"
+PLACE_OF_ISSUE = "place_of_issue"
 
 # messages & errors 
 PHONE_NUMBER_REQUIRED = _("The Phone number field must be set")
@@ -46,6 +61,9 @@ INVALID_PHONE_NUMBER = _("Invalid phone number")
 INVALID_INPUT_DATA = _("Invalid input data")
 INSURD_PERSON_ALREADY_EXISTS_IN_POLICY = _("This person is already insured under this policy.")
 SOMETHING_WENT_WRONG = _("Something went wrong.")
+INVALID_PHONE_NUMBER = _("Invalid phone number. the phone number should be in 09XX XXX XXXX pattern")
+INVALID_BIRTH_DATE = _("Your birth date cannot be in the future.")
+INVALID_IDENTITY_NUMBER = _("Invalid identity number")
 
 # status code
 class BusinessStatusCodes:

@@ -3,5 +3,5 @@ from .views import CreateInsuredPersonView
 
 
 urlpatterns = [
-    path('api/insurance-policy/', CreateInsuredPersonView.as_view(), name='insurance-policy'),
+    path('insurance-policy/', CreateInsuredPersonView.as_view(), name='insurance-policy'),
 ]

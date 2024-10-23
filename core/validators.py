@@ -1,43 +1,49 @@
 import datetime
+from django.core.exceptions import ValidationError
 
-from django.core.validators import MaxValueValidator
 
-
-class YearValidator:
+class BirthDateValidator:
     """
-    Validator for checking if a given year is valid.
+    Validator for checking if a given date is valid.
 
-    This validator checks if a given year is less than or equal to the current year.
+    This validator checks if the provided date is less than or equal to the current date.
     """
+
     @staticmethod
-    def current_year():
+    def current_date():
         """
-        Get the current year.
+        Get the current date.
 
         Returns
         -------
-        int
-            The current year.
+        datetime.date
+            The current date.
         """
-        return datetime.date.today().year
+        return datetime.date.today()
 
     @staticmethod
-    def max_year_validator(value):
+    def validate(date):
         """
-        Validate that the given year is less than or equal to the current year.
+        Validate that the given date is less than or equal to the current date.
 
         Parameters
         ----------
-        value : int
-            The year value to validate.
+        value : datetime.date
+            The date to validate.
 
         Returns
         -------
-        None
+        bool
 
         Raises
         ------
         ValidationError
-            If the value is greater than the current year.
+            If the date is in the future.
         """
-        MaxValueValidator(YearValidator.current_year())(value)
+        if not isinstance(date, datetime.date):
+            raise ValidationError("Invalid date format. Please provide a valid date.")
+        current = BirthDateValidator.current_date()
+        if date > current:
+            return False
+        else:
+            return True
