@@ -1,5 +1,5 @@
 from django.urls import path
-from .apis import CreateInsuredPersonView
+from .views import CreateInsuredPersonView
 
 
 urlpatterns = [
