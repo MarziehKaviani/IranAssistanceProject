@@ -18,7 +18,6 @@ class InsuranseDataBuilder:
         self.json_data = mapper.map_to_internal(json_data) 
 
     def get_person(self):
-        print(self.json_data, 777777777777777777777777777777777)
         person_data = self.json_data[variables.INSURED_PERSON]
         person, created = Person.objects.get_or_create(**person_data)
         return person
