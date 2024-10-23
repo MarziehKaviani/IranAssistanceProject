@@ -9,14 +9,18 @@ from rest_framework import permissions
 swagger_description = """
 ### IranAssistanceProject APIs
   
-    `Summery`: This API receives bulk insurance data from various insurance providers (e.g., Pasargad, Hekmat, Mellat, Saman, etc.).
-    The providers submit a unified JSON containing personal, insurance, policyholder, and plan details. The API validates and processes the data,
-    ensuring compliance with our business rules. Each section, such as personal details, insurance provider info, policyholder details,
-    insurance policy, and plan specifics, follows a strict format and sequence. Validation includes email, mobile number, national ID,
-    and required fields. The API supports custom field names for different providers while adhering to business logic. Proper error handling
-    and validation messages are implemented.
-
-
+    This API receives bulk insurance data from various insurance 
+    providers (e.g.,  Pasargad,  Hekmat,  Mellat,  Saman,  etc.).
+    The providers  submit  a unified  JSON  containing  personal, 
+    insurance,  policyholder, and plan details. The API validates
+    and processes the data, ensuring compliance with our business
+    rules.  Each section,  such  as  personal details,  insurance 
+    provider info,  policyholder  details,  insurance policy, and 
+    plan specifics,  follows strict format & sequence. Validation
+    includes email, mobileNumber, nationalID, and required fields
+    The API  supports  custom field names for different providers 
+    while  adhering  to business logic. Proper error handling and 
+    validation messages are implemented.
 `_________________________________________________________________`
     
 """
