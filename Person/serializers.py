@@ -7,6 +7,14 @@ from .validators import PhoneNumberValidator, identity_number_validator
 
 
 class PersonSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Person model.
+    
+    Validates:
+    - Phone number format
+    - Birth date (not in the future)
+    - Identity number format
+    """
     class Meta:
         model = Person
         fields = [

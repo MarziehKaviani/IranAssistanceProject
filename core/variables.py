@@ -1,3 +1,12 @@
+"""
+This file contains key constants for maintaining consistency, internationalization, and clear error handling in the project:
+
+Verbose Names: Human-readable field names, internationalized using gettext_lazy for use in models and admin.
+Keys: Standardized field names used throughout the application for data access.
+Messages & Errors: Predefined messages for validation and error handling.
+Business Status Codes: Custom status codes for success, validation, and system errors.
+"""
+
 from django.utils.translation import gettext_lazy as _
 
 # verbose names

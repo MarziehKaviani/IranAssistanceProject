@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from core import variables
-from .validators import PhoneNumberValidator
 
 
 class Person(models.Model):
@@ -33,7 +32,7 @@ class Person(models.Model):
 
     identity_number = models.CharField(max_length=11, verbose_name=variables.IDENTITY_NUMBER_VERBOSE_NAME,)
 
-    birth_date = models.DateField(verbose_name=variables.BIRTH_DATE_VERBOSE_NAME, null=True, blank=True)  # TODO Set validator for this too
+    birth_date = models.DateField(verbose_name=variables.BIRTH_DATE_VERBOSE_NAME, null=True, blank=True)  
 
     father_name = models.CharField(max_length=255, verbose_name=variables.FATHER_NAME_VERBOSE_NAME, null=True, blank=True)
 
