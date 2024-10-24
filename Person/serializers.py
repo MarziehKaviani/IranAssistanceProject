@@ -1,12 +1,11 @@
 from rest_framework import serializers
-
 from Person.models import Person
 from core import variables
 from core.validators import BirthDateValidator
 from .validators import PhoneNumberValidator, identity_number_validator
 
 
-class PersonSerializer(serializers.ModelSerializer):
+class PersonSerializer(serializers.Serializer):
     """
     Serializer for the Person model.
     
@@ -15,18 +14,15 @@ class PersonSerializer(serializers.ModelSerializer):
     - Birth date (not in the future)
     - Identity number format
     """
-    class Meta:
-        model = Person
-        fields = [
-            variables.PHONE_NUMBER,
-            variables.EMAIL,
-            variables.NAME,
-            variables.LAST_NAME,
-            variables.IDENTITY_NUMBER,
-            variables.BIRTH_DATE,
-            variables.FATHER_NAME,
-            variables.PLACE_OF_ISSUE,
-        ]
+    phone_number = serializers.CharField(max_length=11)
+    email = serializers.EmailField()
+    name = serializers.CharField(max_length=32)
+    last_name = serializers.CharField(max_length=32)
+    identity_number = serializers.CharField(max_length=11)
+    birth_date = serializers.DateField(allow_null=True, required=False)
+    father_name = serializers.CharField(max_length=255, allow_null=True, required=False)
+    place_of_issue = serializers.CharField(max_length=255, allow_null=True, required=False)
+
     def validate(self, attrs):
         if not PhoneNumberValidator(phone_number=attrs[variables.PHONE_NUMBER]).validate():
             raise serializers.ValidationError({variables.PHONE_NUMBER: variables.INVALID_PHONE_NUMBER})

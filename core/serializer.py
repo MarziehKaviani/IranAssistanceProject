@@ -74,3 +74,11 @@ class CompleteDataSerializer(serializers.Serializer):
     policy_holder = PolicyholderSerializer()
     insurance_policy = InsurancePolicySerializer()
     insurance_plan = InsurancePlanSerializer()    
+
+    def validate(self, attrs):
+        print('here')
+        return super().validate(attrs)
+    
+    def create(self, validated_data):
+        print('oooooo')
+        return super().create(validated_data)
